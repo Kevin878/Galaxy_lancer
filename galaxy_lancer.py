@@ -32,7 +32,7 @@ img_title = [
 
 # 畫面大小
 SCREEN_X = 1440
-SCREEN_Y = 800
+SCREEN_Y = 900
 
 # 載入影像
 img_galaxy = pygame.image.load("source/image_gl/galaxy.png")
@@ -44,7 +44,7 @@ speed = 16 #管理非玩家速度（大局速度）
 player_speed = 20
 
 # 玩家數量
-PLAYER = 1
+PLAYER = 2
 
 # 難度
 MODE = ["EASY", "NORMAL", "HARD", "FEARFUL"] #管理難度的列表
@@ -638,6 +638,7 @@ def main(): # 主要迴圈
         draw_effect(screen)
 
         draw_text(screen, "SCORE: "+str(score), 10, 20, 50, SILVER, True) #繪製分數
+        draw_text(screen, "MODE: "+MODE[mode_number], SCREEN_X-300, 20, 50, SILVER, True)
         
         if idx != 0:
             screen.blit(img_shield, [40, SCREEN_Y-40])
