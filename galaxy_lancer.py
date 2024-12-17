@@ -11,23 +11,23 @@ CYAN = (0, 224, 255)
 WHITE = (255, 255, 255)
 
 img_sship = [
-    pygame.image.load("image_gl/starship.png"),
-    pygame.image.load("image_gl/starship_l.png"),
-    pygame.image.load("image_gl/starship_r.png"),
-    pygame.image.load("image_gl/starship_burner.png")
+    pygame.image.load("source/image_gl/starship.png"),
+    pygame.image.load("source/image_gl/starship_l.png"),
+    pygame.image.load("source/image_gl/starship_r.png"),
+    pygame.image.load("source/image_gl/starship_burner.png")
 ]
-img_shield = pygame.image.load("image_gl/shield.png")
+img_shield = pygame.image.load("source/image_gl/shield.png")
 
-img_weapon = pygame.image.load("image_gl/bullet.png")
-img_enemy = [pygame.image.load(f"image_gl/enemy{id}.png") for id in range(5)] + [
-    pygame.image.load("image_gl/enemy_boss.png"),
-    pygame.image.load("image_gl/enemy_boss_f.png")
+img_weapon = pygame.image.load("source/image_gl/bullet.png")
+img_enemy = [pygame.image.load(f"source/image_gl/enemy{id}.png") for id in range(5)] + [
+    pygame.image.load("source/image_gl/enemy_boss.png"),
+    pygame.image.load("source/image_gl/enemy_boss_f.png")
 ]
-img_explore = [None] + [pygame.image.load(f"image_gl/explosion{i+1}.png") for i in range(5)] #不能讓清單推倒式同時與其他值出現
+img_explore = [None] + [pygame.image.load(f"source/image_gl/explosion{i+1}.png") for i in range(5)] #不能讓清單推倒式同時與其他值出現
 
 img_title = [
-    pygame.image.load("image_gl/nebula.png"),
-    pygame.image.load("image_gl/logo.png")
+    pygame.image.load("source/image_gl/nebula.png"),
+    pygame.image.load("source/image_gl/logo.png")
 ]
 
 # 畫面大小
@@ -35,7 +35,7 @@ SCREEN_X = 2400
 SCREEN_Y = 1300
 
 # 載入影像
-img_galaxy = pygame.image.load("image_gl/galaxy.png")
+img_galaxy = pygame.image.load("source/image_gl/galaxy.png")
 img_galaxy = pygame.transform.scale(img_galaxy, (960, SCREEN_Y))
 
 # 畫面
@@ -456,10 +456,10 @@ def main(): # 主要迴圈
     screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
     clock = pygame.time.Clock()
 
-    se_barrage = pygame.mixer.Sound("sound_gl/barrage.ogg")
-    se_explosion = pygame.mixer.Sound("sound_gl/explosion.ogg")
-    se_damage = pygame.mixer.Sound("sound_gl/damage.ogg")
-    se_shot = pygame.mixer.Sound("sound_gl/shot.ogg")
+    se_barrage = pygame.mixer.Sound("source/sound_gl/barrage.ogg")
+    se_explosion = pygame.mixer.Sound("source/sound_gl/explosion.ogg")
+    se_damage = pygame.mixer.Sound("source/sound_gl/damage.ogg")
+    se_shot = pygame.mixer.Sound("source/sound_gl/shot.ogg")
 
     while True:
         try:
@@ -553,7 +553,7 @@ def main(): # 主要迴圈
             draw_text(screen, "PRESS [SPACE] TO START", SCREEN_X//2, SCREEN_Y*0.7, 50, SILVER, False)
             if tmr == 1:
                 # 設定播放音樂
-                pygame.mixer.music.load("sound_gl/bgm.ogg")
+                pygame.mixer.music.load("source/sound_gl/bgm.ogg")
                 pygame.mixer.music.play(-1)
 
             if tmr > FPS*2:
@@ -597,11 +597,11 @@ def main(): # 主要迴圈
                 if tmr%10 == 0:
                     se_damage.play()
             if tmr == 120:
-                pygame.mixer.music.load("sound_gl/gameover.ogg")
+                pygame.mixer.music.load("source/sound_gl/gameover.ogg")
                 pygame.mixer.music.play(0)
             if tmr > 120:
                 draw_text(screen, "GAME OVER", screen.get_width()//2, screen.get_height()//2, 80, RED, False)
-            if tmr == FPS*15:
+            if tmr == FPS*7:
                 idx = 0
                 tmr = 0
         
@@ -610,7 +610,7 @@ def main(): # 主要迴圈
             move_missile(screen)
             if tmr == 1:
                 pygame.mixer.music.stop()
-                pygame.mixer.music.load("sound_gl/gameclear.ogg")
+                pygame.mixer.music.load("source/sound_gl/gameclear.ogg")
             if tmr <= 90:
                 if tmr%5 == 0:
                     for id in range(ENEMY_MAX): 
@@ -630,7 +630,7 @@ def main(): # 主要迴圈
                     se_damage.play()
             if tmr == 90: pygame.mixer.music.play(0)
             if tmr >= 90: draw_text(screen, "GAME CLEAR!!!", screen.get_width()//2, screen.get_height()//2, 80, SILVER, False)
-            if tmr == FPS*10:
+            if tmr == FPS*5:
                 idx = 0
                 tmr = 0
 
