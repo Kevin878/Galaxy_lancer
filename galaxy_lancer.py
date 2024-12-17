@@ -577,8 +577,6 @@ def main(): # 主要迴圈
 
 
         if idx == 1:
-            if tmr==1:
-                tmr = 1950
             # 飛船
             move_starship(screen)
             # 子彈（等KEY接收到之後）
