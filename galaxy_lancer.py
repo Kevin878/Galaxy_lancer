@@ -268,8 +268,8 @@ def bring_enemy():
             set_enemy(random.randint(20, SCREEN_X-20), LINE_T, random.randint(60, 120), ENEMY_TYPE+2, speed/2, (mode_number+1)*2)
         if 45 < sec < 60:
             set_enemy(random.randint(20, SCREEN_X-20), LINE_T, 90, ENEMY_TYPE+3, speed, mode_number+1)
-        if tmr == 65*FPS:
-            set_enemy(random.randint(20, SCREEN_X-20), LINE_T, 90, ENEMY_BOSS, 10+mode_number, PLAYER*100+mode_number*50)
+    if tmr == 65*FPS:
+        set_enemy(random.randint(20, SCREEN_X-20), LINE_T, 90, ENEMY_BOSS, 10+mode_number, PLAYER*100+mode_number*50)
     
 
 def set_enemy(x, y, a, ty, sp, sh):
@@ -328,12 +328,16 @@ def move_enemy(scrn: pygame.Surface):
                         emy_count[id] = 2
                         for j in range(20):
                             set_enemy(emy_x[id], emy_y[id]+80, 90-j/2*8, EMY_BULLET, speed, 0)
+                    if tmr%abs((mode_number*5)-20) == 0:
+                        set_enemy(emy_x[id], emy_y[id], random.randint(-20, 50), EMY_BULLET, speed, 0)
                 elif emy_count[id] == 2:
                     emy_x[id] += emy_speed[id]
                     if emy_x[id] >= SCREEN_X-200:
                         emy_count[id] = 1
                         for j in range(20):
                             set_enemy(emy_x[id], emy_y[id]+80, 90+j/2*8, EMY_BULLET, speed, 0)
+                    if tmr%abs((mode_number*5)-20) == 0:
+                        set_enemy(emy_x[id], emy_y[id], random.randint(120, 200), EMY_BULLET, speed, 0)
                 elif emy_count[id] == 3:
                     emy_x[id] += dis
                     if abs(emy_x[id] - SCREEN_X // 2) < abs(dis):  # 當接近中心點時更新狀態
@@ -362,7 +366,7 @@ def move_enemy(scrn: pygame.Surface):
                 if emy_count[id] < 4:
                     if tmr%(FPS/((mode_number+1)*2)) == 0:
                         set_enemy(emy_x[id], emy_y[id]+80, 90, EMY_BULLET, speed, 0)
-
+                
                 if emy_shield[id] < (PLAYER*100+mode_number*50)*0.25 and dis == 0: #當血量只剩下四分之一時
                     dis = int(SCREEN_X//2-emy_x[id])/20
                     emy_count[id] = 3
@@ -573,6 +577,8 @@ def main(): # 主要迴圈
 
 
         if idx == 1:
+            if tmr==1:
+                tmr = 1950
             # 飛船
             move_starship(screen)
             # 子彈（等KEY接收到之後）
@@ -597,7 +603,7 @@ def main(): # 主要迴圈
                 pygame.mixer.music.play(0)
             if tmr > 120:
                 draw_text(screen, "GAME OVER", screen.get_width()//2, screen.get_height()//2, 80, RED, False)
-            if tmr == FPS*7:
+            if tmr == FPS*10:
                 idx = 0
                 tmr = 0
         
@@ -626,7 +632,7 @@ def main(): # 主要迴圈
                     se_damage.play()
             if tmr == 90: pygame.mixer.music.play(0)
             if tmr >= 90: draw_text(screen, "GAME CLEAR!!!", screen.get_width()//2, screen.get_height()//2, 80, SILVER, False)
-            if tmr == FPS*5:
+            if tmr == FPS*10:
                 idx = 0
                 tmr = 0
 
