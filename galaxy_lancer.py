@@ -31,8 +31,8 @@ img_title = [
 ]
 
 # 畫面大小
-SCREEN_X = 2400
-SCREEN_Y = 1300
+SCREEN_X = 1440
+SCREEN_Y = 800
 
 # 載入影像
 img_galaxy = pygame.image.load("source/image_gl/galaxy.png")
@@ -255,7 +255,6 @@ def move_missile(scrn: pygame.Surface):
 
 def bring_enemy():
     global tmr
-    print(tmr)
 
     # 自動化出現敵機
     sec = tmr/FPS
@@ -271,7 +270,6 @@ def bring_enemy():
             set_enemy(random.randint(20, SCREEN_X-20), LINE_T, 90, ENEMY_TYPE+3, speed, mode_number+1)
         if tmr == 65*FPS:
             set_enemy(random.randint(20, SCREEN_X-20), LINE_T, 90, ENEMY_BOSS, 10+mode_number, PLAYER*100+mode_number*50)
-            print("HELLO")
     
 
 def set_enemy(x, y, a, ty, sp, sh):
@@ -575,8 +573,6 @@ def main(): # 主要迴圈
 
 
         if idx == 1:
-            if tmr == 1:
-                tmr = 1950
             # 飛船
             move_starship(screen)
             # 子彈（等KEY接收到之後）
