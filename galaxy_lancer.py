@@ -44,7 +44,7 @@ speed = 16 #管理非玩家速度（大局速度）
 player_speed = 20
 
 # 玩家數量
-PLAYER = 2
+PLAYER = 1
 
 # 難度
 MODE = ["EASY", "NORMAL", "HARD", "FEARFUL"] #管理難度的列表
@@ -174,7 +174,7 @@ def move_starship(scrn: pygame.Surface):
             se_shot.play()
         Key_Z[plid] = (Key_Z[plid] + 1) * BTdown[plid]
         if Key_Z[plid] == 1 and ss_shield > 10:
-            ss_shield -= 10 #扣掉防禦力
+            ss_shield -= int(10/PLAYER) #扣掉防禦力
             set_missile(10, ss_x[plid], ss_y[plid], ss_d[plid])
             se_barrage.play()
 
@@ -326,16 +326,16 @@ def move_enemy(scrn: pygame.Surface):
                     emy_x[id] -= emy_speed[id]
                     if emy_x[id] < 200:
                         emy_count[id] = 2
-                        for j in range(20):
-                            set_enemy(emy_x[id], emy_y[id]+80, 90-j/2*8, EMY_BULLET, speed, 0)
+                        for j in range(5):
+                            set_enemy(emy_x[id], emy_y[id]+80, 90-j*2*8, EMY_BULLET, speed*0.8, 0)
                     if tmr%abs((mode_number*5)-20) == 0:
                         set_enemy(emy_x[id], emy_y[id], random.randint(-20, 50), EMY_BULLET, speed, 0)
                 elif emy_count[id] == 2:
                     emy_x[id] += emy_speed[id]
                     if emy_x[id] >= SCREEN_X-200:
                         emy_count[id] = 1
-                        for j in range(20):
-                            set_enemy(emy_x[id], emy_y[id]+80, 90+j/2*8, EMY_BULLET, speed, 0)
+                        for j in range(5):
+                            set_enemy(emy_x[id], emy_y[id]+80, 90+j*2*8, EMY_BULLET, speed*0.8, 0)
                     if tmr%abs((mode_number*5)-20) == 0:
                         set_enemy(emy_x[id], emy_y[id], random.randint(120, 200), EMY_BULLET, speed, 0)
                 elif emy_count[id] == 3:
@@ -345,19 +345,19 @@ def move_enemy(scrn: pygame.Surface):
                         emy_count[id] = 4
                 elif emy_count[id] == 4:
                     if tmr%(int(FPS/(mode_number+1))) == 0:
-                        for a in range(10, 170, 10):
+                        for a in range(10, 170, 20):
                             set_enemy(emy_x[id], emy_y[id]+80, a, EMY_BULLET, speed, 0)
                         emy_count[id] = 5
-                    if tmr%(FPS*2) == 0:
+                    if tmr%(FPS*3) == 0:
                         emy_count[id] = 5
                 elif emy_count[id] == 5:
-                    if tmr%1 == 0:
+                    if tmr%3 == 0:
                         #計算角度
                         set_enemy(emy_x[id], emy_y[id]+80, tmr%16*10, EMY_BULLET, speed, 0)
                     if tmr%(FPS*3) == 0:
                         emy_count[id] = 6
                 elif emy_count[id] == 6:
-                    if tmr%1 == 0:
+                    if tmr%3 == 0:
                         #計算角度
                         set_enemy(emy_x[id], emy_y[id]+80, abs(tmr%16-16)*10, EMY_BULLET, speed, 0)
                     if tmr%(FPS*3) == 0:
